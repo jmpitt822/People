@@ -1,7 +1,7 @@
 /**
  * Created by jeremypitt on 9/12/16.
  */
-public class Person {
+public class Person implements Comparable{
     String id;
     private String firstName;
     private String lastName;
@@ -16,6 +16,12 @@ public class Person {
         this.email = email;
         this.country = country;
         this.ipAddress = ipAddress;
+    }
+
+    @Override
+    public int compareTo(Object o){
+        Person p = (Person) o;
+        return lastName.compareTo(p.lastName);
     }
 
 
@@ -69,6 +75,7 @@ public class Person {
 
     @Override
     public String toString() {
+
         return String.format("%s %s from %s\n",firstName, lastName, country );
     }
 }
