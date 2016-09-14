@@ -19,6 +19,8 @@ public class Main {
 
         createMap();
 
+        sortPeople();
+
         System.out.println(peopleMap);
 
         writeJson();
@@ -32,8 +34,6 @@ public class Main {
 
 
         while (fileScanner.hasNextLine()) {
-
-
 
             line = fileScanner.nextLine();
             String[] columns = line.split(",");
@@ -52,10 +52,18 @@ public class Main {
         }
     }
 
+    public static void sortPeople() {
+        for (Map.Entry<String, List<Person>> entry : peopleMap.entrySet()) {
+            List<Person> peopleList = entry.getValue();
+            Collections.sort(peopleList);
+        }
+    }
+
     public static void writeJson() throws IOException{
-        JsonSerializer serializer = new JsonSerializer();
-        String json = serializer.serialize(peopleMap);
-        FileWriter fw = new FileWriter("people.json");
+        File writeFile = new File("people.json");
+        JsonSerializer s = new JsonSerializer();
+        FileWriter fw = new FileWriter(writeFile);
+        String json = s.include("*").serialize(peopleMap);
         fw.write(json);
         fw.close();
     }
